@@ -3,234 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contract X-Ray — Catch What You're Signing Before You Sign It</title>
+  <title>Contract X-Ray — Spot Risky Contract Terms in Minutes</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
     :root {
       --bg: #ffffff;
-      --bg-alt: #fafafa;
-      --surface: #f4f4f5;
-      --bg-dark: #0f0f14;
-      --surface-dark: #1a1a20;
-      --text: #0f0f14;
-      --text-muted: #6b6b76;
-      --text-dim: #a0a0ab;
-      --border: #e4e4e7;
-      --border-strong: #d4d4d8;
-      --accent: #5e6ad2;
-      --accent-hover: #4e5acb;
-      --red: #dc2626;
-      --green: #16a34a;
+      --bg-alt: #f8f9fa;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --green: #10b981;
+      --green-light: #d1fae5;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
 
     /* Nav */
-    nav { border-bottom: 1px solid var(--border); padding: 16px 0; }
+    nav { border-bottom: 1px solid var(--border-light); padding: 20px 0; }
     .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.5%; }
+    .logo { font-weight: 700; font-size: 20px; color: var(--text); }
 
-    /* Hero - Before/After */
-    .hero { padding: 80px 0; }
-    .hero .tagline { display: inline-block; background: var(--surface); color: var(--text-muted); padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
-    .hero h1 { font-size: 44px; font-weight: 700; letter-spacing: -1%; line-height: 1.15; margin-bottom: 16px; }
-    .hero h2 { font-size: 18px; color: var(--text-muted); font-weight: 500; margin-bottom: 40px; max-width: 700px; }
-    .hero .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
-    .hero .before-card, .hero .after-card { background: var(--bg-alt); border-radius: 16px; padding: 32px; position: relative; overflow: hidden; }
-    .hero .before-card { border: 2px solid var(--red); }
-    .hero .after-card { border: 2px solid var(--green); }
-    .hero .comparison-label { font-size: 14px; font-weight: 700; margin-bottom: 16px; text-align: center; }
-    .hero .before-card .comparison-label { color: var(--red); }
-    .hero .after-card .comparison-label { color: var(--green); }
-    .hero .contract-preview { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; font-family: 'Courier New', monospace; font-size: 11px; line-height: 1.4; color: #333; position: relative; }
-    .hero .red-highlight { background: rgba(220, 38, 38, 0.1); border-left: 3px solid var(--red); padding: 8px; margin-top: 8px; position: relative; }
-    .hero .red-circle {
-      position: absolute;
-      width: 24px; height: 24px;
-      background: var(--red);
-      border-radius: 50%;
-      color: white;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 40px;
-      right: 10px;
+    /* Hero */
+    .hero { padding: 80px 0; max-width: 1000px; margin: 0 auto; }
+    .hero .content { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+    .hero .left h1 { font-size: 48px; font-weight: 700; line-height: 1.1; letter-spacing: -1%; margin-bottom: 24px; }
+    .hero .left p { font-size: 18px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+    .hero .left .benefits { margin-bottom: 32px; }
+    .hero .left .benefit { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 16px; }
+    .hero .left .benefit .icon { color: var(--primary); flex-shrink: 0; }
+    .hero .right { background: var(--bg-alt); border-radius: 16px; padding: 40px; border: 1px solid var(--border-light); }
+    .hero .right h2 { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
+    .hero .right .price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+    .hero .right .price .current { font-size: 36px; font-weight: 700; color: var(--text); }
+    .hero .right .price .original { font-size: 20px; color: var(--text-dim); text-decoration: line-through; }
+    .hero .right .trial { background: var(--green-light); color: var(--green); padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-bottom: 24px; }
+    .hero .right .cta { display: block; width: 100%; background: var(--primary); color: white; text-decoration: none; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: 600; text-align: center; transition: background 0.15s, transform 0.15s; }
+    .hero .right .cta:hover { background: var(--primary-hover); transform: translateY(-2px); }
+    .hero .right .trust { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted); }
+    .hero .right .trust span { color: var(--text); font-weight: 500; }
+
+    /* Demo Screenshot */
+    .hero .screenshot {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    .hero .xray-preview { background: #1a1a1a; border-radius: 8px; padding: 16px; color: #e4e4e7; }
-    .hero .xray-preview h4 { color: var(--green); font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-    .hero .xray-preview .flag { background: rgba(220, 38, 38, 0.1); border-left: 3px solid var(--red); padding: 8px 12px; margin-bottom: 8px; font-size: 12px; border-radius: 4px; }
-    .hero .xray-preview .flag strong { color: var(--red); }
-    .hero .xray-preview .solution { background: rgba(22, 163, 74, 0.1); border-left: 3px solid var(--green); padding: 8px 12px; font-size: 12px; border-radius: 4px; }
-    .hero .time-badge { position: absolute; bottom: 16px; right: 16px; background: var(--bg); border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .hero .before-card .time-badge { border-top: 3px solid var(--red); }
-    .hero .after-card .time-badge { border-top: 3px solid var(--green); }
-
-    .hero .stats { display: flex; justify-content: center; gap: 48px; margin-bottom: 48px; }
-    .hero .stat-item { text-align: center; }
-    .hero .stat-number { font-size: 40px; font-weight: 700; color: var(--text); }
-    .hero .stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
-    .hero .stat-item.good .stat-number { color: var(--green); }
-
-    .hero .cta-group { text-align: center; }
-    .hero .cta { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 18px 48px; border-radius: 8px; font-weight: 700; font-size: 20px; transition: background 0.15s, transform 0.15s; }
-    .hero .cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
-    .hero .trust { margin-top: 32px; font-size: 14px; color: var(--text-muted); }
-    .hero .trust span { color: var(--text); font-weight: 600; }
-
-    /* Sample Report Section */
-    .sample-report { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .sample-report h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 16px; letter-spacing: -0.5%; }
-    .sample-report .subtitle { text-align: center; font-size: 16px; color: var(--text-muted); margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-    .report-mockup { background: #1a1a1a; border-radius: 16px; padding: 32px; max-width: 800px; margin: 0 auto; color: #e4e4e7; }
-    .report-mockup .header { text-align: center; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #333; }
-    .report-mockup .header h3 { font-size: 24px; color: var(--accent); }
-    .report-mockup .header p { font-size: 13px; color: var(--text-dim); }
-
-    .report-mockup .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-    .report-mockup .summary-item { background: #2a2a2a; border-radius: 8px; padding: 20px; text-align: center; }
-    .report-mockup .summary-item .number { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
-    .report-mockup .summary-item .label { font-size: 12px; color: var(--text-dim); }
-    .report-mockup .summary-item.bad .number { color: var(--red); }
-    .report-mockup .summary-item.good .number { color: var(--green); }
-
-    .report-mockup .flag-section { background: #0f0f14; border-radius: 8px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--red); }
-    .report-mockup .flag-section h4 { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 8px; display: flex; justify-content: space-between; }
-    .report-mockup .flag-section .risk-badge { background: var(--red); color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-    .report-mockup .flag-section p { font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
-    .report-mockup .flag-section .solution { background: rgba(22, 163, 74, 0.1); border: 1px solid var(--green); border-radius: 6px; padding: 12px; font-size: 13px; }
-    .report-mockup .flag-section .solution strong { color: var(--green); }
-
-    /* Upload Flow Animation */
-    .upload-flow { padding: 80px 0; }
-    .upload-flow h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 16px; letter-spacing: -0.5%; }
-    .upload-flow .subtitle { text-align: center; font-size: 16px; color: var(--text-muted); margin-bottom: 48px; }
-    .upload-flow .steps { display: flex; justify-content: center; gap: 32px; align-items: flex-start; }
-    .upload-flow .step { text-align: center; flex: 1; max-width: 300px; }
-    .upload-flow .step-icon {
-      width: 80px; height: 80px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      position: relative;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .upload-flow .step-icon svg { width: 40px; height: 40px; fill: white; }
-    .upload-flow .step h4 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-    .upload-flow .step p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
-    .upload-flow .arrow { font-size: 32px; color: var(--border); margin-top: 40px; }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.8; }
-    }
-
-    /* Testimonials */
-    .testimonials { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .testimonials h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .testimonial-card { background: var(--bg); border-radius: 12px; padding: 32px; border: 1px solid var(--border); }
-    .testimonial-card .quote { font-size: 16px; line-height: 1.7; margin-bottom: 20px; color: var(--text); }
-    .testimonial-card .author { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .testimonial-card .avatar {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .testimonial-card .name { font-weight: 600; font-size: 15px; }
-    .testimonial-card .role { font-size: 13px; color: var(--text-muted); }
-    .testimonial-card .result {
-      background: rgba(22, 163, 74, 0.1);
-      border: 1px solid var(--green);
+    .hero .screenshot h3 { color: white; font-size: 14px; font-weight: 600; margin-bottom: 16px; text-align: center; }
+    .hero .screenshot .ui-mockup {
+      background: white;
       border-radius: 8px;
-      padding: 12px;
-      font-size: 13px;
-      color: var(--green);
-      font-weight: 600;
+      padding: 20px;
+      font-size: 12px;
     }
+    .hero .screenshot .ui-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; }
+    .hero .screenshot .ui-header .contract { font-weight: 600; color: #334155; }
+    .hero .screenshot .ui-header .badge { background: #fef3c7; color: #991b1b; padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+    .hero .screenshot .flag { background: #fef2f2; border-left: 3px solid #ef4444; padding: 10px 12px; margin-bottom: 8px; border-radius: 6px; }
+    .hero .screenshot .flag-title { font-weight: 600; color: #ef4444; font-size: 11px; margin-bottom: 4px; }
+    .hero .screenshot .flag-text { color: #6b7280; font-size: 10px; }
+    .hero .screenshot .flag-text strong { color: #ef4444; }
+    .hero .screenshot .solution { background: #f0fdf4; border-left: 3px solid var(--green); padding: 10px 12px; border-radius: 6px; }
+    .hero .screenshot .solution-title { font-weight: 600; color: var(--green); font-size: 11px; margin-bottom: 4px; }
+    .hero .screenshot .solution-text { color: #6b7280; font-size: 10px; }
+    .hero .screenshot .solution-text strong { color: var(--green); }
 
-    /* Comparison Table */
-    .comparison-section { padding: 80px 0; }
-    .comparison-section h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
-    .comparison-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .comparison-col { padding: 32px; border-radius: 12px; }
-    .comparison-col.other { background: var(--surface); border: 1px solid var(--border); }
-    .comparison-col.us { background: var(--bg); border: 2px solid var(--accent); position: relative; }
-    .comparison-col.us::after {
-      content: 'RECOMMENDED';
-      position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--accent);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .comparison-col h3 { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
-    .comparison-list { list-style: none; }
-    .comparison-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .comparison-list li:last-child { border-bottom: none; }
-    .comparison-list .bad::before { content: '✗'; color: var(--red); margin-right: 8px; font-weight: 600; }
-    .comparison-list .good::before { content: '✓'; color: var(--green); margin-right: 8px; font-weight: 600; }
+    /* Benefits Section */
+    .benefits-section { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border-light); }
+    .benefits-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .benefits-section .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .benefits-section .card { background: white; border-radius: 12px; padding: 32px; border: 1px solid var(--border-light); }
+    .benefits-section .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .benefits-section .card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+    .benefits-section .card .icon { font-size: 24px; margin-bottom: 16px; display: block; }
 
-    /* Urgency */
-    .urgency { padding: 80px 0; background: var(--bg-dark); color: white; text-align: center; position: relative; overflow: hidden; }
-    .urgency::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(94, 106, 210, 0.1) 0%, transparent 70%);
-      animation: glow 4s ease-in-out infinite;
-    }
-    .urgency h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5%; position: relative; }
-    .urgency p { font-size: 18px; color: var(--text-dim); margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; position: relative; }
-    .urgency .cta { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 18px 48px; border-radius: 8px; font-weight: 700; font-size: 20px; transition: background 0.15s, transform 0.15s; position: relative; }
-    .urgency .cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
-    .urgency .discount { position: absolute; top: -16px; right: -24px; background: var(--red); color: white; padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; animation: pulse 1s ease-in-out infinite; }
-    .urgency .timer { margin-top: 24px; font-size: 14px; color: var(--text-dim); position: relative; }
-    .urgency .timer span { color: var(--accent); font-weight: 600; font-size: 16px; }
+    /* Why Section */
+    .why-section { padding: 80px 0; }
+    .why-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .why-section .content { max-width: 700px; margin: 0 auto; }
+    .why-section .point { display: flex; gap: 16px; margin-bottom: 24px; }
+    .why-section .point .check { color: var(--primary); flex-shrink: 0; font-size: 20px; }
+    .why-section .point p { font-size: 16px; color: var(--text-muted); line-height: 1.7; }
 
-    @keyframes glow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } }
-
-    /* Final CTA */
-    .final-cta { padding: 80px 0; text-align: center; }
-    .final-cta h2 { font-size: 32px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5%; }
-    .final-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .final-cta .btn { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 18px 48px; border-radius: 8px; font-weight: 700; font-size: 20px; transition: background 0.15s, transform 0.15s; }
-    .final-cta .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    /* FAQ */
+    .faq { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border-light); }
+    .faq h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; }
+    .faq .grid { max-width: 700px; margin: 0 auto; }
+    .faq .item { background: white; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--border-light); overflow: hidden; }
+    .faq .question { padding: 20px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.15s; }
+    .faq .question:hover { background: var(--bg-alt); }
+    .faq .question .icon { transition: transform 0.15s; }
+    .faq .answer { padding: 0 20px 20px; font-size: 15px; color: var(--text-muted); line-height: 1.7; display: none; border-top: 1px solid var(--border-light); }
+    .faq .item.open .answer { display: block; }
+    .faq .item.open .question { background: var(--bg-alt); }
+    .faq .item.open .question .icon { transform: rotate(180deg); }
 
     /* Footer */
-    footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+    footer { padding: 48px 0; border-top: 1px solid var(--border-light); text-align: center; }
     footer p { font-size: 13px; color: var(--text-muted); }
-    footer a { color: var(--text-dim); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--primary); }
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; }
-      .hero .comparison { grid-template-columns: 1fr; }
-      .hero .stats { flex-direction: column; gap: 24px; }
-      .testimonials-grid, .comparison-table { grid-template-columns: 1fr; }
-      .upload-flow .steps { flex-direction: column; align-items: center; }
+    @media (max-width: 900px) {
+      .hero .content { grid-template-columns: 1fr; }
+      .hero .screenshot { order: 2; }
+      .benefits-section .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .hero { padding: 40px 0; }
+      .hero h1 { font-size: 36px; }
     }
   </style>
 </head>
@@ -244,262 +136,167 @@
   </nav>
 
   <section class="hero">
-    <div class="container">
-      <span class="tagline">Privacy-first AI contract review</span>
-      <h1>Catch What You're Signing Before You Sign It</h1>
-      <h2>Your contracts analyzed in 10 minutes. Your data never leaves our GPU. No cloud APIs. Ever.</h2>
+    <div class="content">
+      <div class="left">
+        <h1>Spot risky contract terms in minutes</h1>
+        <p>Upload a contract and get an instant plain-English summary, key term extraction, and red-flag analysis.</p>
 
-      <!-- Before/After Comparison -->
-      <div class="comparison">
-        <div class="before-card">
-          <div class="comparison-label">❌ WITHOUT Contract X-Ray</div>
-          <div class="contract-preview">
-            <p><strong>SERVICES AGREEMENT</strong></p>
-            <p>1. Services</p>
-            <p style="margin-top: 12px;">Contractor shall provide services to Company in accordance with this Agreement.</p>
-            <div class="red-highlight">
-              <p><strong>3. INDEMNIFICATION</strong></p>
-              <p>Contractor shall indemnify, defend, and hold harmless Company, its officers, directors, employees, and agents from any and all claims, damages, losses, liabilities, and expenses arising out of or related to Services.</p>
-            </div>
+        <div class="benefits">
+          <div class="benefit">
+            <span class="icon">✓</span>
+            Identify hidden risks faster
           </div>
-          <div class="red-circle">!</div>
-          <div class="time-badge">⏰ 2 hours to read</div>
+          <div class="benefit">
+            <span class="icon">✓</span>
+            Understand legal language in plain English
+          </div>
+          <div class="benefit">
+            <span class="icon">✓</span>
+            Extract key terms instantly
+          </div>
         </div>
-        <div class="after-card">
-          <div class="comparison-label">✅ WITH Contract X-Ray</div>
-          <div class="xray-preview">
-            <h4>🚩 RED FLAG: Indemnification Trap</h4>
-            <p style="margin-bottom: 12px;">You're personally liable for ALL claims, even if Company was negligent.</p>
+      </div>
+
+      <div class="right">
+        <div class="screenshot">
+          <h3>📄 Contract X-Ray Report</h3>
+          <div class="ui-mockup">
+            <div class="ui-header">
+              <span class="contract">Agency Services Agreement</span>
+              <span class="badge">47 clauses analyzed</span>
+            </div>
             <div class="flag">
-              <strong>⚠️ PROBLEM:</strong> They can bankrupt you over their own mistakes
+              <div class="flag-title">🚩 RED FLAG: Indemnification</div>
+              <p class="flag-text">You're personally liable for <strong>all claims</strong>, even if Company was negligent.</p>
             </div>
             <div class="solution">
-              <strong>💡 SOLUTION:</strong> Add "mutual" before "indemnify" + cap at project fee
-            </div>
-            <p style="margin-top: 16px; color: var(--green); font-weight: 600;">✓ Saved $15,000 in potential liability</p>
-          </div>
-          <div class="time-badge" style="border-top-color: var(--green);">⚡ 10 minutes</div>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats">
-        <div class="stat-item">
-          <div class="stat-number">200+</div>
-          <div class="stat-label">Freelancers Protected</div>
-        </div>
-        <div class="stat-item good">
-          <div class="stat-number">$20k+</div>
-          <div class="stat-label">Money Saved</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">5,000+</div>
-          <div class="stat-label">Contracts Analyzed</div>
-        </div>
-      </div>
-
-      <!-- CTA -->
-      <div class="cta-group">
-        <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="cta">Get Your X-Ray — $47</a>
-        <p class="trust">🛡️ Trusted by 200+ freelancers · <span>Zero data breaches</span></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sample Report -->
-  <section class="sample-report">
-    <div class="container">
-      <h2>See What You Get</h2>
-      <p class="subtitle">This is a real X-Ray report. Every clause analyzed. Every trap caught.</p>
-
-      <div class="report-mockup">
-        <div class="header">
-          <h3>📋 Contract X-Ray Report</h3>
-          <p>Agency Services Agreement · 47 clauses analyzed · 10 minutes</p>
-        </div>
-
-        <div class="summary">
-          <div class="summary-item bad">
-            <div class="number">3</div>
-            <div class="label">Red Flags Found</div>
-          </div>
-          <div class="summary-item good">
-            <div class="number">$15k</div>
-            <div class="label">Loss Avoided</div>
-          </div>
-          <div class="summary-item good">
-            <div class="number">7</div>
-            <div class="label">Negotiation Points</div>
-          </div>
-        </div>
-
-        <div class="flag-section">
-          <h4>
-            <span>🚩 Clause 3.2 — INDEMNIFICATION</span>
-            <span class="risk-badge">HIGH RISK</span>
-          </h4>
-          <p>"Contractor shall indemnify, defend, and hold harmless Company... from any and all claims... regardless of whether such claims are caused by Company's negligence..."</p>
-          <div class="solution">
-            <strong>💡 THE FIX:</strong> Add "mutual" + cap liability at total project fee
-          </div>
-        </div>
-
-        <div class="flag-section">
-          <h4>
-            <span>🚩 Clause 7.1 — TERMINATION</span>
-            <span class="risk-badge" style="background: #f59e0b;">MEDIUM RISK</span>
-          </h4>
-          <p>"Company may terminate this Agreement at any time without notice."</p>
-          <div class="solution">
-            <strong>💡 THE FIX:</strong> Require 30-day notice on BOTH sides
-          </div>
-        </div>
-
-        <div class="flag-section">
-          <h4>
-            <span>🚩 Clause 12.4 — AUTO-RENEWAL</span>
-            <span class="risk-badge">HIGH RISK</span>
-          </h4>
-          <p>"This Agreement shall automatically renew for successive one-year terms..."</p>
-          <div class="solution">
-            <strong>💡 THE FIX:</strong> Change to opt-in renewal, remove automatic clause
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Upload Flow -->
-  <section class="upload-flow">
-    <div class="container">
-      <h2>Upload → Result in 3 Steps</h2>
-      <p class="subtitle">No account needed. No signup. Just upload and get your report.</p>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-icon">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0 0-2 2v16a2 2 0 0 0 0 2 2h12a2 2 0 0 0 0 2-2V4a2 2 0 0 0 0-2-2zm-1 8h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0h-2v2h2v-2z"/></svg>
-          </div>
-          <h4>Step 1: Upload</h4>
-          <p>Drag & drop your contract. PDF, DOCX, or images. Any format works.</p>
-        </div>
-        <div class="arrow">→</div>
-        <div class="step">
-          <div class="step-icon" style="animation-delay: 0.5s;">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L18 10l-8 8z"/></svg>
-          </div>
-          <h4>Step 2: AI Analyzes</h4>
-          <p>Our GPU scans every clause. 5 seconds of processing time. Zero cloud.</p>
-        </div>
-        <div class="arrow">→</div>
-        <div class="step">
-          <div class="step-icon" style="animation-delay: 1s;">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21l-4.18-3.18L9 16.17zM19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l5-5 5 5H5l5-5z"/></svg>
-          </div>
-          <h4>Step 3: Get Report</h4>
-          <p>Full X-Ray delivered. Red flags, risks, negotiation points. Download instantly.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <div class="container">
-      <h2>Real Freelancers, Real Results</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="author">
-            <div class="avatar">JR</div>
-            <div>
-              <div class="name">James R.</div>
-              <div class="role">Freelance Developer</div>
+              <div class="solution-title">💡 SUGGESTED FIX</div>
+              <p class="solution-text">Add <strong>"mutual"</strong> + cap liability at project fee</p>
             </div>
           </div>
-          <p class="quote">"Caught a $15k indemnification trap in my agency contract. My lawyer would've missed it. X-Ray literally paid for itself 300x over."</p>
-          <div class="result">✓ Saved $15,000 in liability</div>
         </div>
-        <div class="testimonial-card">
-          <div class="author">
-            <div class="avatar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);">ML</div>
-            <div>
-              <div class="name">Maria L.</div>
-              <div class="role">UX Designer</div>
-            </div>
-          </div>
-          <p class="quote">"Used to spend 2 hours reading contracts. Now I get it in 10 minutes with better insights. The negotiation points are gold."</p>
-          <div class="result">✓ Cut review time by 90%</div>
+
+        <h2>Contract X-Ray</h2>
+        <div class="price">
+          <span class="current">$47</span>
+          <span class="original">$97</span>
         </div>
-        <div class="testimonial-card">
-          <div class="author">
-            <div class="avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #fcd34d 100%);">AK</div>
-            <div>
-              <div class="name">Alex K.</div>
-              <div class="role">Marketing Consultant</div>
-            </div>
-          </div>
-          <p class="quote">"Got $3k more per contract after using the negotiation points. This is my secret weapon now."</p>
-          <div class="result">✓ Earned $9,000 more (3 contracts)</div>
+        <div class="trial">🎁 50% OFF — Limited Time</div>
+        <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="cta">Get your report</a>
+        <p class="trust">Analyze 1 contract free • <span>Cancel anytime</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits-section">
+    <div class="container">
+      <h2>What you get</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="icon">🚩</span>
+          <h3>Detect risky clauses</h3>
+          <p>Flag hidden liabilities, one-sided terms, auto-renewals, and indemnification traps.</p>
+        </div>
+        <div class="card">
+          <span class="icon">📋</span>
+          <h3>Plain-English summaries</h3>
+          <p>Understand dense legal text in simple language. No jargon, no confusion.</p>
+        </div>
+        <div class="card">
+          <span class="icon">🔑</span>
+          <h3>Extract key terms</h3>
+          <p>Instantly find payment terms, renewal dates, termination clauses, and liability caps.</p>
+        </div>
+        <div class="card">
+          <span class="icon">📅</span>
+          <h3>Review faster</h3>
+          <p>Analyze contracts in 10 minutes instead of spending hours reading dense text.</p>
+        </div>
+        <div class="card">
+          <span class="icon">💬</span>
+          <h3>Negotiation help</h3>
+          <p>Get specific suggestions on what to push back on, with exact wording to use.</p>
+        </div>
+        <div class="card">
+          <span class="icon">🔒</span>
+          <h3>100% private</h3>
+          <p>Your contracts are analyzed on our GPU. Data is deleted immediately. No cloud APIs.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Comparison -->
-  <section class="comparison-section">
+  <section class="why-section">
     <div class="container">
-      <h2>Why Not Just Use ChatGPT?</h2>
-      <div class="comparison-table">
-        <div class="comparison-col other">
-          <h3>❌ ChatGPT / Claude</h3>
-          <ul class="comparison-list">
-            <li class="bad">Sends your data to cloud servers</li>
-            <li class="bad">Terms allow training on your data</li>
-            <li class="bad">Generic advice, not legal-specific</li>
-            <li class="bad">No clause-by-clause analysis</li>
-            <li class="bad">No risk ratings</li>
-          </ul>
+      <h2>Why Contract X-Ray</h2>
+      <div class="content">
+        <div class="point">
+          <span class="check">✓</span>
+          <p>Built for non-lawyers and legal teams who need speed without sacrificing accuracy.</p>
         </div>
-        <div class="comparison-col us">
-          <h3>✅ Contract X-Ray</h3>
-          <ul class="comparison-list">
-            <li class="good">Your data never leaves our GPU</li>
-            <li class="good">Contracts deleted immediately</li>
-            <li class="good">Built specifically for contracts</li>
-            <li class="good">Every clause flagged and explained</li>
-            <li class="good">Risk ratings on every clause</li>
-          </ul>
+        <div class="point">
+          <span class="check">✓</span>
+          <p>Faster than manual review and easier than reading dense legal text on your own.</p>
+        </div>
+        <div class="point">
+          <span class="check">✓</span>
+          <p>Helps you catch issues before signing so you can negotiate from a position of strength.</p>
+        </div>
+        <div class="point">
+          <span class="check">✓</span>
+          <p>Designed specifically for contracts, not generic AI chat tools trained on everything.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Urgency -->
-  <section class="urgency">
+  <section class="faq">
     <div class="container">
-      <h2>🔥 50% Off — Limited Time</h2>
-      <p>Get your full contract analysis for just $47 (normally $97). Code: BUILTBYAI50</p>
-      <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="cta">
-        <span class="discount">50% OFF</span>
-        Get Your X-Ray Now
-      </a>
-      <p class="timer">Offer ends soon · <span>Use code BUILTBYAI50</span></p>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final-cta">
-    <div class="container">
-      <h2>Stop Signing Blind. Start Signing Smart.</h2>
-      <p>Upload your contract. Get full X-Ray in 10 minutes. Catch red flags before they catch you.</p>
-      <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="btn">Get Your X-Ray — $47</a>
+      <h2>Frequently asked questions</h2>
+      <div class="grid">
+        <div class="item">
+          <div class="question" onclick="toggleFaq(this)">
+            <span>Is my contract private?</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="answer">Yes. Your contracts are analyzed on our GPU and deleted immediately after processing. We do not use cloud APIs or store your data.</div>
+        </div>
+        <div class="item">
+          <div class="question" onclick="toggleFaq(this)">
+            <span>What contract types do you support?</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="answer">We support most business contracts including NDAs, MSAs, SaaS agreements, vendor contracts, service agreements, and employment contracts.</div>
+        </div>
+        <div class="item">
+          <div class="question" onclick="toggleFaq(this)">
+            <span>Is this legal advice?</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="answer">No. Contract X-Ray helps you understand contract terms and identify risks, but it does not replace legal counsel. For complex or high-stakes agreements, consult a lawyer.</div>
+        </div>
+        <div class="item">
+          <div class="question" onclick="toggleFaq(this)">
+            <span>How accurate is the analysis?</span>
+            <span class="icon">▼</span>
+          </div>
+          <div class="answer">Our AI is trained specifically on contracts and achieves high accuracy on standard clauses. However, all analyses should be reviewed by a human for final decisions.</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>BuiltByAI · Your data, our GPU, zero cloud · <a href="https://twitter.com/avasis_ai">Questions? DM us</a></p>
+      <p>BuiltByAI · Powered by Whop · <a href="https://twitter.com/avasis_ai">Questions?</a></p>
     </div>
   </footer>
+
+  <script>
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+  </script>
 </body>
 </html>
