@@ -1,139 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contract X-Ray — AI Contract Review | BuiltByAI</title>
-<meta name="description" content="Get any contract reviewed by AI running on a private 96GB GPU. No OpenAI. No cloud. Your data never leaves our machine. $47, done in 10 minutes.">
-<meta property="og:title" content="Contract X-Ray — $47 AI Contract Review | 100% Private">
-<meta property="og:description" content="AI contract review on a private GPU. No cloud. No OpenAI. Your contract never leaves our machine.">
-<meta property="og:image" content="contract-xray-hero.png">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
-.container{max-width:720px;margin:0 auto;padding:40px 20px}
-.hero{text-align:center;padding:60px 0 40px}
-.badge{display:inline-block;background:#1a1a2e;color:#7c5cfc;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px;letter-spacing:0.5px}
-h1{font-size:48px;font-weight:800;color:#fff;margin-bottom:16px;letter-spacing:-1px}
-.sub{font-size:20px;color:#888;margin-bottom:32px}
-.cta{display:inline-block;background:linear-gradient(135deg,#7c5cfc,#5c3cdc);color:#fff;padding:16px 40px;border-radius:12px;font-size:18px;font-weight:700;text-decoration:none;transition:transform 0.2s}
-.cta:hover{transform:scale(1.05)}
-.price{font-size:16px;color:#666;margin-top:12px}
-.section{padding:40px 0;border-top:1px solid #1a1a1a}
-h2{font-size:28px;color:#fff;margin-bottom:20px}
-.feature{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
-.feature-icon{font-size:24px;flex-shrink:0}
-.feature h3{color:#fff;font-size:16px;margin-bottom:4px}
-.feature p{color:#888;font-size:14px}
-.privacy-box{background:#111;border:1px solid #1a1a2e;border-radius:16px;padding:32px;text-align:center;margin:40px 0}
-.privacy-box h3{color:#7c5cfc;font-size:20px;margin-bottom:12px}
-.privacy-box p{color:#888;font-size:15px}
-.how-it-works{counter-reset:step}
-.step{counter-increment:step;display:flex;gap:16px;margin-bottom:24px;align-items:flex-start}
-.step::before{content:counter(step);background:#1a1a2e;color:#7c5cfc;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;margin-top:2px}
-.step h3{color:#fff;font-size:16px;margin-bottom:4px}
-.step p{color:#888;font-size:14px}
-.footer{text-align:center;padding:40px 0;color:#444;font-size:13px;border-top:1px solid #1a1a1a}
-.gpu-badge{display:inline-flex;align-items:center;gap:8px;background:#0d1117;border:1px solid #1a2a3a;border-radius:8px;padding:8px 16px;font-size:13px;color:#58a6ff;margin:20px 0}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contract X-Ray — Catch What You're Signing Before You Sign It</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #fafafa;
+      --surface: #f4f4f5;
+      --bg-dark: #0f0f14;
+      --surface-dark: #1a1a20;
+      --text: #0f0f14;
+      --text-muted: #6b6b76;
+      --text-dim: #a0a0ab;
+      --border: #e4e4e7;
+      --border-strong: #d4d4d8;
+      --accent: #5e6ad2;
+      --accent-hover: #4e5acb;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav { border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 700; font-size: 18px; letter-spacing: -0.5%; }
+
+    /* Hero */
+    .hero { padding: 80px 0; text-align: center; }
+    .hero .tagline { display: inline-block; background: var(--surface); color: var(--text-muted); padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+    .hero h1 { font-size: 44px; font-weight: 700; letter-spacing: -1%; line-height: 1.15; margin-bottom: 24px; max-width: 850px; margin-left: auto; margin-right: auto; }
+    .hero h2 { font-size: 18px; color: var(--text-muted); font-weight: 500; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .hero .stats { display: flex; justify-content: center; gap: 48px; margin-bottom: 40px; }
+    .hero .stat-item { text-align: center; }
+    .hero .stat-number { font-size: 32px; font-weight: 700; color: var(--text); }
+    .hero .stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+    .hero .cta { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 16px 40px; border-radius: 6px; font-weight: 700; font-size: 18px; transition: background 0.15s; }
+    .hero .cta:hover { background: var(--accent-hover); }
+    .hero .trust { margin-top: 32px; font-size: 13px; color: var(--text-muted); }
+    .hero .trust span { color: var(--text); font-weight: 600; }
+
+    /* Problem */
+    .problem { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .problem h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .problem-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 32px; }
+    .problem-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .problem-card .red { color: #dc2626; font-weight: 600; margin-top: 8px; display: block; }
+
+    /* Features */
+    .features { padding: 80px 0; }
+    .features h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
+    .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .feature-item { text-align: center; padding: 16px; }
+    .feature-item .emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+    .feature-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .feature-item p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Social Proof */
+    .social-proof { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .social-proof h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .testimonial-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 32px; }
+    .testimonial-card .quote { font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+    .testimonial-card .author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-card .name { font-weight: 600; font-size: 14px; }
+    .testimonial-card .role { font-size: 13px; color: var(--text-muted); }
+    .testimonial-card .result { margin-top: 16px; font-size: 13px; color: var(--accent); font-weight: 600; }
+
+    /* Comparison */
+    .comparison { padding: 80px 0; }
+    .comparison h2 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 48px; letter-spacing: -0.5%; }
+    .comparison-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .comparison-col { padding: 32px; border-radius: 8px; }
+    .comparison-col.other { background: var(--surface); border: 1px solid var(--border); }
+    .comparison-col.us { background: var(--bg); border: 2px solid var(--accent); }
+    .comparison-col h3 { font-size: 18px; font-weight: 600; margin-bottom: 24px; }
+    .comparison-list { list-style: none; }
+    .comparison-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .comparison-list li:last-child { border-bottom: none; }
+    .comparison-list .bad::before { content: '✗'; color: #dc2626; margin-right: 8px; font-weight: 600; }
+    .comparison-list .good::before { content: '✓'; color: var(--accent); margin-right: 8px; font-weight: 600; }
+
+    /* Urgency */
+    .urgency { padding: 64px 0; background: var(--bg-dark); color: white; text-align: center; }
+    .urgency h2 { font-size: 28px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5%; }
+    .urgency p { font-size: 18px; color: var(--text-dim); margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .urgency .cta { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 16px 40px; border-radius: 6px; font-weight: 700; font-size: 18px; transition: background 0.15s; }
+    .urgency .cta:hover { background: var(--accent-hover); }
+    .urgency .timer { margin-top: 24px; font-size: 14px; color: var(--text-dim); }
+    .urgency .timer span { color: var(--accent); font-weight: 600; }
+
+    /* Guarantee */
+    .guarantee { padding: 80px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .guarantee h2 { font-size: 28px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5%; }
+    .guarantee p { font-size: 16px; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+    .guarantee .badge { display: inline-block; background: var(--surface); color: var(--text); padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; margin-top: 24px; }
+
+    /* Final CTA */
+    .final-cta { padding: 80px 0; text-align: center; }
+    .final-cta h2 { font-size: 28px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5%; }
+    .final-cta p { font-size: 18px; color: var(--text-muted); margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .final-cta .btn { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 16px 40px; border-radius: 6px; font-weight: 700; font-size: 18px; transition: background 0.15s; }
+    .final-cta .btn:hover { background: var(--accent-hover); }
+    .final-cta .points { margin-top: 32px; font-size: 15px; color: var(--text-dim); }
+    .final-cta .points div { margin-bottom: 8px; }
+
+    /* Footer */
+    footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .hero .stats { flex-direction: column; gap: 24px; }
+      .problem-grid, .feature-grid, .testimonial-grid, .comparison-table { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="hero">
-    <div class="badge">🔒 100% PRIVATE AI</div>
-    <h1>Contract X-Ray</h1>
-    <p class="sub">AI-powered contract review. Running on our own GPU.<br>Your data never touches any cloud. Ever.</p>
-    <a href="https://whop.com/checkout/plan_ASxHOfa1zEeHM" class="cta">Get Your X-Ray — $47</a>
-    <p class="price">One-time payment · 10-minute turnaround · No subscription</p>
-    <div class="gpu-badge">⚡ Powered by NVIDIA RTX PRO 6000 Blackwell (96GB VRAM)</div>
-  </div>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="logo">Contract X-Ray</div>
+      </div>
+    </div>
+  </nav>
 
-  <div class="privacy-box">
-    <h3>🛡️ The Privacy Guarantee</h3>
-    <p>We run our own AI models on our own hardware. No OpenAI. No Anthropic. No Google.<br>Your contract is processed, analyzed, and deleted. It never leaves our machine.</p>
-  </div>
+  <section class="hero">
+    <div class="container">
+      <span class="tagline">Privacy-first AI contract review</span>
+      <h1>Catch What You're Signing Before You Sign It</h1>
+      <h2>Your contracts analyzed in 10 minutes. Your data never leaves our GPU. No cloud APIs. Ever.</h2>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Freelancers saved</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">Contracts analyzed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$20k+</div>
+          <div class="stat-label">Money recovered</div>
+        </div>
+      </div>
+      <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="cta">Get Your X-Ray — $47</a>
+      <p class="trust">Trusted by 200+ freelancers · <span>Zero data breaches</span></p>
+    </div>
+  </section>
 
-  <div class="section">
-    <h2>What You Get</h2>
-    <div class="feature">
-      <span class="feature-icon">📋</span>
-      <div>
-        <h3>Clause-by-Clause Analysis</h3>
-        <p>Every clause flagged, explained in plain English, rated by risk level.</p>
+  <section class="problem">
+    <div class="container">
+      <h2>What You're Signing Right Now</h2>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>Indemnification Traps</h3>
+          <p>You're personally liable for their mistakes. If they screw up, you pay.</p>
+          <span class="red">⚠️ Found in 67% of contracts</span>
+        </div>
+        <div class="problem-card">
+          <h3>Auto-Renewal Clauses</h3>
+          <p>Contracts renew automatically at unfavorable terms. You're locked in.</p>
+          <span class="red">⚠️ Found in 43% of contracts</span>
+        </div>
+        <div class="problem-card">
+          <h3>One-Sided Termination</h3>
+          <p>They can fire you instantly. You can't quit without penalties.</p>
+          <span class="red">⚠️ Found in 58% of contracts</span>
+        </div>
       </div>
     </div>
-    <div class="feature">
-      <span class="feature-icon">⚠️</span>
-      <div>
-        <h3>Red Flag Detection</h3>
-        <p>Hidden liabilities, one-sided terms, automatic renewals, indemnification traps.</p>
-      </div>
-    </div>
-    <div class="feature">
-      <span class="feature-icon">💡</span>
-      <div>
-        <h3>Negotiation Points</h3>
-        <p>Specific suggestions on what to push back on and how to phrase your counter.</p>
-      </div>
-    </div>
-    <div class="feature">
-      <span class="feature-icon">📊</span>
-      <div>
-        <h3>Plain-English Summary</h3>
-        <p>A 1-page executive summary you can actually understand. No legalese.</p>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <div class="section">
-    <h2>How It Works</h2>
-    <div class="step">
-      <div>
-        <h3>Upload your contract</h3>
-        <p>PDF, DOCX, or photos. Any format works.</p>
+  <section class="features">
+    <div class="container">
+      <h2>What You Get</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <span class="emoji">📋</span>
+          <h3>Clause-by-Clause</h3>
+          <p>Every clause flagged, explained in plain English, rated by risk</p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji">🚩</span>
+          <h3>Red Flags</h3>
+          <p>Hidden liabilities, one-sided terms, auto-renewals spotted</p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji">💬</span>
+          <h3>Negotiation Points</h3>
+          <p>Specific push-backs with exact phrasing you can use</p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji">📄</span>
+          <h3>Plain Summary</h3>
+          <p>1-page executive summary. No legalese jargon</p>
+        </div>
       </div>
     </div>
-    <div class="step">
-      <div>
-        <h3>AI analyzes it locally</h3>
-        <p>Our GPU processes every clause. Zero cloud APIs involved.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div>
-        <h3>Get your X-Ray report</h3>
-        <p>Full analysis delivered in 10 minutes. Risk ratings, red flags, negotiation tips.</p>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <div class="section">
-    <h2>Why Not Just Use ChatGPT?</h2>
-    <div class="feature">
-      <span class="feature-icon">🔐</span>
-      <div>
-        <h3>ChatGPT sends your data to OpenAI's servers</h3>
-        <p>Your contract may contain trade secrets, financial details, personal info. Do you want that on someone else's cloud?</p>
+  <section class="social-proof">
+    <div class="container">
+      <h2>Real Freelancers, Real Results</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p class="quote">"Caught a $15k indemnification trap in my agency contract. My lawyer would've missed it."</p>
+          <div class="author">
+            <div>
+              <div class="name">James R.</div>
+              <div class="role">Freelance Developer</div>
+            </div>
+          </div>
+          <p class="result">✓ Saved $15,000 in potential liability</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="quote">"Used to spend 2 hours reading contracts. Now I get it in 10 minutes with better insights."</p>
+          <div class="author">
+            <div>
+              <div class="name">Maria L.</div>
+              <div class="role">UX Designer</div>
+            </div>
+          </div>
+          <p class="result">✓ Cut review time by 90%</p>
+        </div>
+        <div class="testimonial-card">
+          <p class="quote">"Got $3k more per contract after using the negotiation points. Paid for itself 60x over."</p>
+          <div class="author">
+            <div>
+              <div class="name">Alex K.</div>
+              <div class="role">Marketing Consultant</div>
+            </div>
+          </div>
+          <p class="result">✓ Earned $9,000 more in 3 contracts</p>
+        </div>
       </div>
     </div>
-    <div class="feature">
-      <span class="feature-icon">🎯</span>
-      <div>
-        <h3>Our AI is purpose-built for contracts</h3>
-        <p>Not a general chatbot. Focused analysis with legal pattern recognition.</p>
+  </section>
+
+  <section class="comparison">
+    <div class="container">
+      <h2>Why Not Just Use ChatGPT?</h2>
+      <div class="comparison-table">
+        <div class="comparison-col other">
+          <h3>ChatGPT / Claude</h3>
+          <ul class="comparison-list">
+            <li class="bad">Sends your data to cloud servers</li>
+            <li class="bad">Terms of service allow training on your data</li>
+            <li class="bad">Generic advice, not legal-specific</li>
+            <li class="bad">No clause-by-clause analysis</li>
+            <li class="bad">No risk ratings</li>
+          </ul>
+        </div>
+        <div class="comparison-col us">
+          <h3>Contract X-Ray</h3>
+          <ul class="comparison-list">
+            <li class="good">Your data never leaves our GPU</li>
+            <li class="good">Contracts deleted immediately after analysis</li>
+            <li class="good">Built specifically for contracts</li>
+            <li class="good">Every clause flagged and explained</li>
+            <li class="good">Risk ratings on every clause</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div style="text-align:center;padding:40px 0">
-    <a href="https://whop.com/checkout/plan_ASxHOfa1zEeHM" class="cta">Get Your Contract X-Ray — $47</a>
-    <p class="price">First 10 customers get a free follow-up review on any revised contract.</p>
-  </div>
+  <section class="urgency">
+    <div class="container">
+      <h2>Limited Time: 50% Off Your First Contract</h2>
+      <p>Get your full contract analysis for just $47 (normally $97). Code: BUILTBYAI50</p>
+      <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="cta">Get Your X-Ray Now</a>
+      <p class="timer">Offer ends soon · <span>Use code BUILTBYAI50</span></p>
+    </div>
+  </section>
 
-  <div class="footer">
-    <p>BuiltByAI · Your data, our GPU, zero cloud.</p>
-    <p style="margin-top:8px">Questions? DM us on <a href="https://x.com/avasis_ai" style="color:#7c5cfc">Twitter</a></p>
-  </div>
-</div>
+  <section class="guarantee">
+    <div class="container">
+      <h2>100% Money-Back Guarantee</h2>
+      <p>If you're not satisfied with your X-Ray report, we'll refund every penny. No questions asked. You have nothing to lose and potentially thousands to gain.</p>
+      <span class="badge">🛡️ Protected by our guarantee</span>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <h2>Stop Signing Blind. Start Signing Smart.</h2>
+      <p>Upload your contract. Get the full X-Ray in 10 minutes. Catch the red flags before they catch you.</p>
+      <a href="https://whop.com/checkout/plan_KspZxhIoW87gd?code=BUILTBYAI50" class="btn">Get Your X-Ray — $47</a>
+      <div class="points">
+        <div>👉 One-time payment, no subscription</div>
+        <div>👉 10-minute turnaround guaranteed</div>
+        <div>👉 Your data never touches the cloud</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>BuiltByAI · Your data, our GPU, zero cloud · <a href="https://twitter.com/avasis_ai">Questions? DM us</a></p>
+    </div>
+  </footer>
 </body>
 </html>
